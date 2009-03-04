@@ -1,7 +1,0 @@
-{
-  "title": "h1",
-  "links(a)": [{
-		"text": ".",
-		"link": "@href"
-	}]
-}

@@ -1,6 +1,0 @@
-{
-	"string(a)": ["position()"],
-	"object(a)": [{
-		"position": "position()"
-	}]
-}

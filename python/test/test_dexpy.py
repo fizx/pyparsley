@@ -11,7 +11,7 @@ class TestPyParsley(unittest.TestCase):
 		self.alt_parsley = PyParsley('{"title": "title"}')
 		self.__file__ = currentframe().f_code.co_filename
 		self.__dir__ = dirname(self.__file__)
-		self.file = self.__dir__ + '/../../test/yelp.html'
+		self.file = self.__dir__ + '/yelp.html'
 		self.json = '{ "title": "\\t\\tNick\'s Crispy Tacos - Russian Hill - San Francisco, CA\\n" }'
 	
 	def test_file_xml(self):	
