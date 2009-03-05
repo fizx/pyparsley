@@ -1,0 +1,30 @@
+ABOUT
+
+Python bindings for Parsley.
+
+INSTALLATION
+
+= Get Parsley and Dependancies = 
+
+Download Parsley from http://github.com/fizx/parsley/tree/master following the installation directions located at http://github.com/fizx/parsley/blob/master/INSTALL
+
+= Install pyparsely =
+
+sudo python setup.py install
+
+= Example Code =
+
+  from pyparsley import PyParsley
+
+  parselet = PyParsley({ 
+                         "title": "title", 
+                         "links(a)": [
+                           { 
+                             "name": ".", 
+                             "href": "@href" 
+                           }
+                         ]
+                       })
+  json_string = parselet.parse(file = some_file, output = "json")
+  # Using Parsley's builtin URI fetching.
+  json_string = parselet.parse(file = "http://www.example.com/", output = "json")
