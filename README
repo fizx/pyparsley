@@ -1,12 +1,14 @@
 ABOUT
 
-Python bindings for Parsley.
+Python 2.x bindings for Parsley.  Tested with Python 2.5 and 2.6.
 
 INSTALLATION
 
 = Get Parsley and Dependancies = 
 
 Download Parsley from http://github.com/fizx/parsley/tree/master following the installation directions located at http://github.com/fizx/parsley/blob/master/INSTALL
+
+For Python 2.5, the simplejson library is required.  For Python 2.6 and later, the stdlib json library is used.	
 
 = Install pyparsely =
 
