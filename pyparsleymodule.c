@@ -34,8 +34,11 @@ PyMODINIT_FUNC
 initpyparsley(void) 
 {
 		jsonmodule = PyImport_ImportModule("json");
-		if(jsonmodule == NULL)
-			return NULL;
+		if(jsonmodule == NULL) {
+      PyErr_Clear();
+      jsonmodule = PyImport_ImportModule("simplejson");
+		}
+		if(jsonmodule == NULL) return NULL;
 			
     PyObject* m;
 
