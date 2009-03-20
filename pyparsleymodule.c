@@ -38,7 +38,7 @@ initpyparsley(void)
       PyErr_Clear();
       jsonmodule = PyImport_ImportModule("simplejson");
 		}
-		if(jsonmodule == NULL) return NULL;
+		if(jsonmodule == NULL) return;
 			
     PyObject* m;
 
@@ -158,7 +158,7 @@ PyParsley_parse_doc(parsedParsleyPtr ptr, char *type) {
 		output = Py_BuildValue("s", str);
 		json_object_put(json);
 	} else if(!strcmp(type, "xml")) {
-		char* str;
+		xmlChar* str;
 		int size;
 		xmlDocDumpMemory(ptr->xml, &str, &size);
 		output = Py_BuildValue("s", str);
@@ -196,9 +196,9 @@ PyParsley_parse(PyParsley *self, PyObject *args, PyObject *keywords)
 	}
 	
 	if(file != NULL) {
-		ptr = parsley_parse_file(self->parsley, file, !strcmp(input, "html"));
+		ptr = parsley_parse_file(self->parsley, file, !strcmp(input, "html"), 1);
 	} else {
-		ptr = parsley_parse_string(self->parsley, string, len, !strcmp(input, "html"));
+		ptr = parsley_parse_string(self->parsley, string, len, !strcmp(input, "html"), 1);
 	}	
 	
 	return PyParsley_parse_doc(ptr, output);
