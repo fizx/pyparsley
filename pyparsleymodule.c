@@ -173,6 +173,9 @@ PyParsley_parse_doc(parsedParsleyPtr ptr, char *type) {
 	return output;
 }
 
+#define SET_FLAG(C, B)    if(!B) flags -= C
+
+
 static PyObject *
 PyParsley_parse(PyParsley *self, PyObject *args, PyObject *keywords)
 {
@@ -180,15 +183,29 @@ PyParsley_parse(PyParsley *self, PyObject *args, PyObject *keywords)
 	char *string = NULL;
 	char *input = "html";
 	char *output = "python";
+  char *base = NULL;
+  int prune = 1;
+  int collate = 1;
+  int allow_net = 1;
+  int allow_local = 1;
 	int len;
+  int flags = 0;
 	parsedParsleyPtr ptr;
 	
-	static char * list[] = { "file", "string", "input", "output", NULL };
+	static char * list[] = { "file", "string", "input", 
+	                         "output", "base", "prune", "collate", 
+	                         "allow_net", "allow_local", NULL };
 	
 	if (!PyArg_ParseTupleAndKeywords(args, keywords, 
-		"|ss#ss", list, &file, &string, &len, &input, &output)) {
+		"|ss#sssiiiii", list, &file, &string, &len, &input, &output, &base, &prune, &collate, &allow_net, &allow_local)) {
 		return NULL;
 	}
+	
+	if(!strcmp(input, "html")) flags |= PARSLEY_OPTIONS_HTML;
+  SET_FLAG(PARSLEY_OPTIONS_PRUNE, prune);
+  SET_FLAG(PARSLEY_OPTIONS_COLLATE, collate);
+  SET_FLAG(PARSLEY_OPTIONS_ALLOW_NET, allow_net);
+  SET_FLAG(PARSLEY_OPTIONS_ALLOW_LOCAL, allow_local);
 	
 	if(self->parsley == NULL) {
 		PyErr_SetString(PyExc_RuntimeError, "parsley data is NULL");
@@ -196,9 +213,9 @@ PyParsley_parse(PyParsley *self, PyObject *args, PyObject *keywords)
 	}
 	
 	if(file != NULL) {
-		ptr = parsley_parse_file(self->parsley, file, !strcmp(input, "html"), 1);
+		ptr = parsley_parse_file(self->parsley, file, flags);
 	} else {
-		ptr = parsley_parse_string(self->parsley, string, len, !strcmp(input, "html"), 1);
+		ptr = parsley_parse_string(self->parsley, string, len, base, flags);
 	}	
 	
 	return PyParsley_parse_doc(ptr, output);
