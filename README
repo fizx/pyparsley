@@ -18,6 +18,21 @@ sudo python setup.py install
 
   from pyparsley import PyParsley
 
+  # Valid options (all are named arguments):
+  #
+  # Requires one of:
+  # 'file' -- the input file path or url
+  # 'string' -- the input string
+  #
+  # And optionally (default is the first listed value):
+  # 'input' => ['html', 'xml']
+  # 'output' => ['python', 'json', 'xml']
+  # 'prune' => [true, false]
+  # 'collate' => [true, false]
+  # 'base' => 'http://some/base/href'
+  # 'allow_net' => [true, false]
+  # 'allow_local' => [true, false]
+
   parselet = PyParsley({ 
                          "title": "title", 
                          "links(a)": [
