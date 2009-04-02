@@ -173,7 +173,7 @@ PyParsley_parse_doc(parsedParsleyPtr ptr, char *type) {
 	return output;
 }
 
-#define SET_FLAG(C, B)    if(!B) flags -= C
+#define SET_FLAG(C, B)    if(B) flags |= C
 
 
 static PyObject *
@@ -206,6 +206,8 @@ PyParsley_parse(PyParsley *self, PyObject *args, PyObject *keywords)
   SET_FLAG(PARSLEY_OPTIONS_COLLATE, collate);
   SET_FLAG(PARSLEY_OPTIONS_ALLOW_NET, allow_net);
   SET_FLAG(PARSLEY_OPTIONS_ALLOW_LOCAL, allow_local);
+  
+  // printf("%d %d %d %d %d \n", prune, collate, allow_net, allow_local, flags);
 	
 	if(self->parsley == NULL) {
 		PyErr_SetString(PyExc_RuntimeError, "parsley data is NULL");
