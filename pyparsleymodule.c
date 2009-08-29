@@ -197,7 +197,7 @@ PyParsley_parse(PyParsley *self, PyObject *args, PyObject *keywords)
 	                         "allow_net", "allow_local", NULL };
 	
 	if (!PyArg_ParseTupleAndKeywords(args, keywords, 
-		"|ss#sssiiiii", list, &file, &string, &len, &input, &output, &base, &prune, &collate, &allow_net, &allow_local)) {
+		"|ss#sssiiii", list, &file, &string, &len, &input, &output, &base, &prune, &collate, &allow_net, &allow_local)) {
 		return NULL;
 	}
 	
