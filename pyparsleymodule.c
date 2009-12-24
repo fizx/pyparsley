@@ -188,16 +188,17 @@ PyParsley_parse(PyParsley *self, PyObject *args, PyObject *keywords)
   int collate = 1;
   int allow_net = 1;
   int allow_local = 1;
+  int utf8 = 0;
 	int len;
   int flags = 0;
 	parsedParsleyPtr ptr;
 	
 	static char * list[] = { "file", "string", "input", 
 	                         "output", "base", "prune", "collate", 
-	                         "allow_net", "allow_local", NULL };
+	                         "allow_net", "allow_local", "utf8", NULL };
 	
 	if (!PyArg_ParseTupleAndKeywords(args, keywords, 
-		"|ss#sssiiii", list, &file, &string, &len, &input, &output, &base, &prune, &collate, &allow_net, &allow_local)) {
+		"|ss#sssiiiii", list, &file, &string, &len, &input, &output, &base, &prune, &collate, &allow_net, &allow_local, &utf8)) {
 		return NULL;
 	}
 	
@@ -206,6 +207,7 @@ PyParsley_parse(PyParsley *self, PyObject *args, PyObject *keywords)
   SET_FLAG(PARSLEY_OPTIONS_COLLATE, collate);
   SET_FLAG(PARSLEY_OPTIONS_ALLOW_NET, allow_net);
   SET_FLAG(PARSLEY_OPTIONS_ALLOW_LOCAL, allow_local);
+  SET_FLAG(PARSLEY_OPTIONS_FORCE_UTF8, utf8);
   
   // printf("%d %d %d %d %d \n", prune, collate, allow_net, allow_local, flags);
 	

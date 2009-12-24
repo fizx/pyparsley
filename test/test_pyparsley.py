@@ -16,14 +16,20 @@ class TestPyParsley(unittest.TestCase):
 		self.json = '{ "title": "\\t\\tNick\'s Crispy Tacos - Russian Hill - San Francisco, CA\\n" }'
 		self.native = { "title": "\t\tNick's Crispy Tacos - Russian Hill - San Francisco, CA\n" }
 		self.links = '{ "links": [ "\\/signup?return_url=%2Fuser_details", "\\/signup?return_url=%2Fwriteareview", "\\/signup?return_url=%2Finvite_friends", "\\/signup?return_url=%2Fmail", "\\/signup?return_url=%2Fprofile", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup", "\\/signup" ] }'
+		self.unicode_string = u'\u2019blah blah blah\u2019'
+		self.unicode_document = u'<html><title>\u2019blah blah blah\u2019</title></html>'
+
+	def test_unicode(self):	
+		parsed = self.parsley.parse(string = self.unicode_document.encode("utf-8"), output = "python", utf8 = 1)
+		self.assertEquals(parsed['title'].decode("utf-8"), self.unicode_string)
 	
 	def test_file_xml(self):	
 		parsed = self.parsley.parse(file = self.file, output = "json")
 		self.assertEquals(self.json, parsed)
 		
 	def test_pruning(self):
-	  parsed = self.a_parsley.parse(file = self.file, output = "json")
-	  self.assertEquals(self.links, parsed)
+		parsed = self.a_parsley.parse(file = self.file, output = "json")
+		self.assertEquals(self.links, parsed)
 			
 	def test_json_file_xml(self):	
 		parsed = self.alt_parsley.parse(file = self.file, output = "json")
